@@ -20,7 +20,7 @@ jobs:
     name: Test
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-2019, windows-2022]
+        os: [ubuntu-latest, macos-latest, windows-2019, windows-2022, windows-latest]
         cache: [true, false]
       fail-fast: false
     steps:
@@ -29,19 +29,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cache NuGet packages
-        if: matrix.cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: ${{ runner.os }}-nuget-
+      # - name: Cache NuGet packages
+      #   if: matrix.cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ${{ github.workspace }}/.nuget/packages
+      #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+      #     restore-keys: ${{ runner.os }}-nuget-
 
       - name: Setup DotNet 8
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
+          cache: true
 
       - name: DotNet restore
         run: |
