@@ -38,11 +38,11 @@ jobs:
       #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       #     restore-keys: ${{ runner.os }}-nuget-
 
-      - name: Setup DotNet 9
+      - name: Setup DotNet 8
         uses: actions/setup-dotnet@v4
         # uses: akv-platform/setup-dotnet@windows-performance
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 8.0.x
           dotnet-quality: 'preview'
           cache: true
           cache-dependency-path: '**/packages.lock.json'
