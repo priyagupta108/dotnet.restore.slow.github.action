@@ -29,15 +29,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cache NuGet packages
-        if: matrix.cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: ${{ runner.os }}-nuget-
+      # - name: Cache NuGet packages
+      #   if: matrix.cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ${{ github.workspace }}/.nuget/packages
+      #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+      #     restore-keys: ${{ runner.os }}-nuget-
 
-      - name: Setup DotNet 8
+      - name: Setup DotNet 8 with cache true
+        if: matrix.cache
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+          dotnet-quality: 'preview'
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Setup DotNet 8 with cache false
+        if: matrix.cache == 'false'
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
