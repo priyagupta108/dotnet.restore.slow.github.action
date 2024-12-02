@@ -63,8 +63,7 @@ jobs:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
 
-      
-
+    
       - name: DotNet restore
         run: |
           dotnet new nugetconfig
