@@ -46,8 +46,8 @@ jobs:
 
       - name: Setup DotNet 8 with cache true
         if: matrix.cache
-        # uses: actions/setup-dotnet@v4
-        uses: akv-platform/setup-dotnet@windows-performance-install-dir
+        uses: actions/setup-dotnet@v4
+        # uses: akv-platform/setup-dotnet@windows-performance-install-dir
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
@@ -57,8 +57,8 @@ jobs:
 
       - name: Setup DotNet 8 with cache false
         if: matrix.cache == false
-        # uses: actions/setup-dotnet@v4
-        uses: akv-platform/setup-dotnet@windows-performance-install-dir
+        uses: actions/setup-dotnet@v4
+        # uses: akv-platform/setup-dotnet@windows-performance-install-dir
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
