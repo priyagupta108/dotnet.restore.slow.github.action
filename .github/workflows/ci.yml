@@ -40,7 +40,8 @@ jobs:
           restore-keys: ${{ runner.os }}-nuget-
 
       - name: Setup DotNet 8
-        uses: actions/setup-dotnet@v4
+        # uses: actions/setup-dotnet@v4
+        uses: akv-platform/setup-dotnet@windows-performance-install-dir
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
