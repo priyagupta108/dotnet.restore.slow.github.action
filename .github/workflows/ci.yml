@@ -14,7 +14,6 @@ env:
   POWERSHELL_TELEMETRY_OPTOUT: 1
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
   
-  
 
 jobs:
   build:
