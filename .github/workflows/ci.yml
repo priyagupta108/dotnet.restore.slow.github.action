@@ -36,23 +36,31 @@ jobs:
       #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       #     restore-keys: ${{ runner.os }}-nuget-
 
-      - name: Setup DotNet 8 with cache true
-        if: matrix.cache
-        # uses: actions/setup-dotnet@v4
-        uses: akv-platform/setup-dotnet@windows-performance-install-dir
-        with:
-          dotnet-version: 8.0.x
-          dotnet-quality: 'preview'
-          cache: true
-          cache-dependency-path: '**/packages.lock.json'
-          
-
-      - name: Setup DotNet 8 with cache false
-        if: matrix.cache == false
+      - name: Setup DotNet 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
+
+      # - name: Setup DotNet 8 with cache true
+      #   if: matrix.cache
+      #   # uses: actions/setup-dotnet@v4
+      #   uses: akv-platform/setup-dotnet@windows-performance-install-dir
+      #   with:
+      #     dotnet-version: 8.0.x
+      #     dotnet-quality: 'preview'
+      #     cache: true
+      #     cache-dependency-path: '**/packages.lock.json'
+          
+
+      # - name: Setup DotNet 8 with cache false
+      #   if: matrix.cache == false
+      #   uses: actions/setup-dotnet@v4
+      #   with:
+      #     dotnet-version: 8.0.x
+      #     dotnet-quality: 'preview'
+
+      
 
       - name: DotNet restore
         run: |
