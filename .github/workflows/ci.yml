@@ -14,7 +14,6 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   POWERSHELL_TELEMETRY_OPTOUT: 1
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
-  
 
 jobs:
   build:
@@ -23,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-2019, windows-2022]
-        # cache: [true, false]
+        cache: [true, false]
       fail-fast: false
     steps:
       - name: Checkout
@@ -31,33 +30,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: Cache NuGet packages
-      #   if: matrix.cache
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: ${{ github.workspace }}/.nuget/packages
-      #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-      #     restore-keys: ${{ runner.os }}-nuget-
+      - name: Cache NuGet packages
+        if: matrix.cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: ${{ runner.os }}-nuget-
 
-      # - name: Setup DotNet 8
-      #   # uses: actions/setup-dotnet@v3
-      #   uses: priyagupta108/setup-dotnet@pr-480-test
-      #   with:
-      #     dotnet-version: 8.0.x
-      #     dotnet-quality: 'preview'
-
-      - name: Setup DotNet 8 with cache true
-        # if: matrix.cache
-        uses: priyagupta108/setup-dotnet@pr-480-test
-        # uses: akv-platform/setup-dotnet@windows-performance-install-dir
+      - name: Setup DotNet 8
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
-          cache: true
-          cache-dependency-path: '**/packages.lock.json'
-          
-
-     
 
       - name: DotNet restore
         run: |
