@@ -39,7 +39,8 @@ jobs:
           restore-keys: ${{ runner.os }}-nuget-
 
       - name: Setup DotNet 8
-        uses: actions/setup-dotnet@v3
+        # uses: actions/setup-dotnet@v3
+        uses: priyagupta108@setup-dotnet@pr-480-test
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
