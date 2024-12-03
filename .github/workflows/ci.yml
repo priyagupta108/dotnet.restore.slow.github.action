@@ -30,20 +30,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cache NuGet packages
-        if: matrix.cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ github.workspace }}/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: ${{ runner.os }}-nuget-
+      # - name: Cache NuGet packages
+      #   if: matrix.cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ${{ github.workspace }}/.nuget/packages
+      #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+      #     restore-keys: ${{ runner.os }}-nuget-
 
-      - name: Setup DotNet 8
-        # uses: actions/setup-dotnet@v3
-        uses: priyagupta108/setup-dotnet@pr-480-test
+      # - name: Setup DotNet 8
+      #   # uses: actions/setup-dotnet@v3
+      #   uses: priyagupta108/setup-dotnet@pr-480-test
+      #   with:
+      #     dotnet-version: 8.0.x
+      #     dotnet-quality: 'preview'
+
+      - name: Setup DotNet 8 with cache true
+        if: matrix.cache
+        uses: actions/setup-dotnet@v4
+        # uses: akv-platform/setup-dotnet@windows-performance-install-dir
         with:
           dotnet-version: 8.0.x
           dotnet-quality: 'preview'
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+          
+
+     
 
       - name: DotNet restore
         run: |
